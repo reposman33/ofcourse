@@ -1,0 +1,28 @@
+{
+  "courses": [
+    {
+      "name": "Angular basics",
+      "id": 1
+    },
+    {
+      "name": "Test",
+      "id": 2
+    },
+    {
+      "name": "test 2",
+      "id": 3
+    },
+    {
+      "name": "test 1234",
+      "id": 4
+    },
+    {
+      "name": "React Purest",
+      "id": 5
+    },
+    {
+      "name": "Ember basics",
+      "id": 6
+    }
+  ]
+}

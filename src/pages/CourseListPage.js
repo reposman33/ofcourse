@@ -4,7 +4,7 @@ import { removeCourse } from "../actions";
 import CreateNewCourse from "./CreateNewCourse";
 import "./CourseListPage.css";
 
-const CourseListPage = ({ courses, dispatch, adding, removing }) => {
+const CourseListPage = ({ courses, dispatch, adding, removing, error }) => {
   const onHandleRemove = course => {
     dispatch(removeCourse(course));
   };
@@ -17,7 +17,7 @@ const CourseListPage = ({ courses, dispatch, adding, removing }) => {
       <ul>
         {courses.map(course => (
           <li key={course.id}>
-            {course.name}
+            <span>{course.name}</span>
             <button
               type="button"
               data-id={course.id}
@@ -30,6 +30,7 @@ const CourseListPage = ({ courses, dispatch, adding, removing }) => {
           </li>
         ))}
       </ul>
+      {error ? error : ""}
       <CreateNewCourse />
     </div>
   );
@@ -38,7 +39,8 @@ const CourseListPage = ({ courses, dispatch, adding, removing }) => {
 const mapStateToProps = state => ({
   courses: state.courses,
   adding: state.adding,
-  removing: state.removing
+  removing: state.removing,
+  error: state.error
 });
 
 export default connect(mapStateToProps)(CourseListPage);

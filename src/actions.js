@@ -16,14 +16,14 @@ const addCourse = name => (dispatch, getState) => {
     .then(courseData =>
       dispatch({ type: ADD_COURSE_SUCCESS, payload: courseData })
     )
-    .catch(err => dispatch({ type: ADD_COURSE_ERROR, error: err }));
+    .catch(error => dispatch({ type: ADD_COURSE_ERROR, error }));
 };
 
 const removeCourse = course => (dispatch, getState) => {
   dispatch({ type: REMOVE_COURSE_BEGIN });
   deleteCourse(course)
     .then(res => dispatch({ type: REMOVE_COURSE_SUCCESS }))
-    .catch(error => dispatch({ type: REMOVE_COURSE_ERROR, error: error }));
+    .catch(error => dispatch({ type: REMOVE_COURSE_ERROR, error }));
 };
 
 const loadCourses = () => (dispatch, getState) => {

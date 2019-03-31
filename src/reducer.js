@@ -22,6 +22,9 @@ const reducer = produce((draft, action) => {
       draft.adding = false;
       draft.courses.push(action.payload);
       return;
+    case ADD_COURSE_ERROR:
+      draft.error = action.error;
+      return;
     case REMOVE_COURSE_BEGIN:
       draft.removing = true;
       return;
@@ -29,13 +32,17 @@ const reducer = produce((draft, action) => {
       draft.removing = false;
       return;
     case REMOVE_COURSE_ERROR:
+      draft.error = action.error;
       return;
     case GET_COURSES_BEGIN:
       draft.loading = true;
       return;
     case GET_COURSES_SUCCESS:
       draft.courses = action.payload;
-      // draft.loading = false;
+      draft.loading = false;
+      return;
+    case GET_COURSES_ERROR:
+      draft.error = action.error;
       return;
     default:
       return draft;

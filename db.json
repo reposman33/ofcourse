@@ -1,28 +1,49 @@
 {
   "courses": [
     {
-      "name": "Angular basics",
+      "name": "Onder professoren",
+      "price": "35.55",
       "id": 1
     },
     {
-      "name": "Test",
+      "name": "Mandarijnen op zwavelzuur",
+      "price": "18.95",
       "id": 2
     },
     {
-      "name": "test 2",
+      "name": "Nooit meer slapen",
+      "price": "5.45",
       "id": 3
     },
     {
-      "name": "test 1234",
+      "name": "De donkere kamer van Damocles",
+      "price": "9.99",
       "id": 4
     },
     {
-      "name": "React Purest",
+      "name": "Alice in wonderland",
+      "price": "3.45",
       "id": 5
     },
     {
-      "name": "Ember basics",
+      "name": "Eeuwig zingen de velden",
+      "price": "3.33",
       "id": 6
+    },
+    {
+      "name": "The grapes of wrath",
+      "price": "4.45",
+      "id": 7
+    },
+    {
+      "name": "De bodem van Amsterdam",
+      "price": "3.45",
+      "id": 8
+    },
+    {
+      "name": "",
+      "price": "",
+      "id": 9
     }
   ]
 }

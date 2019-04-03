@@ -9,21 +9,24 @@ const REMOVE_COURSE_ERROR = "REMOVE_COURSE_ERROR";
 const GET_COURSES_BEGIN = "GET_COURSES_BEGIN";
 const GET_COURSES_SUCCESS = "GET_COURSES_SUCCESS";
 const GET_COURSES_ERROR = "GET_COURSES_ERROR";
+const OPEN_NEW_COURSE_MODAL = "OPEN_NEW_COURSE_MODAL";
+const CLOSE_NEW_COURSE_MODAL = "CLOSE_NEW_COURSE_MODAL";
 
-const addCourse = name => (dispatch, getState) => {
+const addCourse = ({ name, price }) => (dispatch, getState) => {
   dispatch({ type: ADD_COURSE_BEGIN });
-  createCourse(name)
-    .then(courseData =>
-      dispatch({ type: ADD_COURSE_SUCCESS, payload: courseData })
-    )
-    .catch(error => dispatch({ type: ADD_COURSE_ERROR, error }));
+  createCourse({ name, price })
+    .then(courseData => {
+      dispatch({ type: ADD_COURSE_SUCCESS, payload: courseData });
+      dispatch({ type: CLOSE_NEW_COURSE_MODAL });
+    })
+    .catch(error => dispatch({ type: ADD_COURSE_ERROR, error: error }));
 };
 
 const removeCourse = course => (dispatch, getState) => {
   dispatch({ type: REMOVE_COURSE_BEGIN });
   deleteCourse(course)
     .then(res => dispatch({ type: REMOVE_COURSE_SUCCESS }))
-    .catch(error => dispatch({ type: REMOVE_COURSE_ERROR, error }));
+    .catch(error => dispatch({ type: REMOVE_COURSE_ERROR, error: error }));
 };
 
 const loadCourses = () => (dispatch, getState) => {
@@ -33,8 +36,12 @@ const loadCourses = () => (dispatch, getState) => {
     .then(courseData =>
       dispatch({ type: GET_COURSES_SUCCESS, payload: courseData })
     )
-    .catch(error => dispatch({ type: GET_COURSES_ERROR, error }));
+    .catch(error => dispatch({ type: GET_COURSES_ERROR, error: error }));
 };
+
+const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
+
+const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
 
 export {
   REMOVE_COURSE,
@@ -47,6 +54,10 @@ export {
   GET_COURSES_BEGIN,
   GET_COURSES_SUCCESS,
   GET_COURSES_ERROR,
+  OPEN_NEW_COURSE_MODAL,
+  CLOSE_NEW_COURSE_MODAL,
+  openNewCourseModal,
+  closeNewCourseModal,
   addCourse,
   removeCourse,
   loadCourses

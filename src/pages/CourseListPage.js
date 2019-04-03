@@ -1,37 +1,55 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeCourse } from "../actions";
-import CreateNewCourse from "./CreateNewCourse";
-import "./CourseListPage.css";
+import Modal from "react-modal";
+import NewCourse from "./NewCourse";
+import { openNewCourseModal, closeNewCourseModal } from "../actions";
+import "./CourseListPage.scss";
 
-const CourseListPage = ({ courses, dispatch, adding, removing, error }) => {
-  const onHandleRemove = course => {
-    dispatch(removeCourse(course));
-  };
-
+const CourseListPage = ({
+  courses,
+  dispatch,
+  adding,
+  removing,
+  loading,
+  error,
+  price,
+  modalOpen,
+  openNewCourseModal,
+  closeNewCourseModal
+}) => {
   return (
-    <div>
-      <h1> Courses this semester</h1>
+    <div className="courselist">
+      <h1>Mijn boekwinkel</h1>
       {adding ? "Saving new course" : ""}
       {removing ? "Removing new course" : ""}
+
+      <button className="new-course-btn" onClick={openNewCourseModal}>
+        Voeg nieuw boek toe
+      </button>
+
       <ul>
         {courses.map(course => (
-          <li key={course.id}>
-            <span>{course.name}</span>
-            <button
-              type="button"
-              data-id={course.id}
-              onClick={function() {
-                onHandleRemove(course);
-              }}
-            >
-              remove
-            </button>
+          <li key={course.id} className="courselist__item">
+            <div>{course.name}</div>
+            <div>&euro; &nbsp;{course.price.replace(".", ",")}</div>
           </li>
         ))}
       </ul>
       {error ? error : ""}
-      <CreateNewCourse />
+      <Modal isOpen={modalOpen} onRequestClose={closeNewCourseModal}>
+        <NewCourse />
+      </Modal>
+    </div>
+  );
+};
+
+const CoursePrice = () => {
+  return (
+    <div className="courselist__item-price">
+      <label>
+        <div>Prijs</div>
+        <input type="number" step="0.01" min="0" />
+      </label>
     </div>
   );
 };
@@ -40,7 +58,19 @@ const mapStateToProps = state => ({
   courses: state.courses,
   adding: state.adding,
   removing: state.removing,
-  error: state.error
+  error: state.error,
+  loading: state.loading,
+  price: state.price,
+  modalOpen: state.modalOpen
 });
 
-export default connect(mapStateToProps)(CourseListPage);
+const mapDispatchToProps = dispatch => ({
+  openNewCourseModal: () => dispatch(openNewCourseModal()),
+  closeNewCourseModal: () => dispatch(closeNewCourseModal())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CourseListPage);
+export { CoursePrice };

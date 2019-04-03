@@ -1,5 +1,4 @@
-const createCourse = name =>
-  postData("http://localhost:8080/courses", { name });
+const createCourse = course => postData("/courses", course);
 
 const postData = (url = "", data = {}) => {
   return fetch(url, {
@@ -9,8 +8,7 @@ const postData = (url = "", data = {}) => {
   }).then(response => response.json());
 };
 
-const deleteCourse = course =>
-  deleteData("http://localhost:8080/courses", course);
+const deleteCourse = course => deleteData("/courses", course);
 
 const deleteData = (url, course) => {
   return fetch(url, {
@@ -20,6 +18,6 @@ const deleteData = (url, course) => {
   });
 };
 
-const getCourses = () => fetch("http://localhost:8080/courses");
+const getCourses = () => fetch("/courses");
 
 export { createCourse, deleteCourse, getCourses };

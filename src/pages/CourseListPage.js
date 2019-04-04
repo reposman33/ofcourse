@@ -26,12 +26,13 @@ const CourseListPage = ({
       <button className="new-course-btn" onClick={openNewCourseModal}>
         Voeg nieuw boek toe
       </button>
-
       <ul>
         {courses.map(course => (
           <li key={course.id} className="courselist__item">
-            <div>{course.name}</div>
-            <div>&euro; &nbsp;{course.price.replace(".", ",")}</div>
+            <a href={`courses/${course.id}`}>
+              <div>{course.name}</div>
+              <div>&euro; &nbsp;{course.price.replace(".", ",")}</div>
+            </a>
           </li>
         ))}
       </ul>

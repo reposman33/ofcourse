@@ -41,9 +41,29 @@
       "id": 8
     },
     {
-      "name": "",
-      "price": "",
+      "name": "Frans Nederlands woordenboek",
+      "price": "14.95",
       "id": 9
+    },
+    {
+      "name": "Duits Nederlands woordenboek",
+      "price": "12.95",
+      "id": 10
+    },
+    {
+      "name": "De laatste der Mohikanen",
+      "price": "14.45",
+      "id": 11
+    },
+    {
+      "name": "Vlees minderen",
+      "price": "15.25",
+      "id": 14
+    },
+    {
+      "name": "Wees onzichtbaar",
+      "price": "14.95",
+      "id": 15
     }
   ]
 }

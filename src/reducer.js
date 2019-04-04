@@ -31,7 +31,8 @@ const reducer = produce((draft, action) => {
       draft.modalOpen = false;
       return;
     case ADD_COURSE_ERROR:
-      draft.saveError = action.error;
+      draft.adding = false;
+      draft.error = `${action.error.status}: ${action.error.statusText}`;
       return;
     case REMOVE_COURSE_BEGIN:
       draft.removing = true;
@@ -40,7 +41,7 @@ const reducer = produce((draft, action) => {
       draft.removing = false;
       return;
     case REMOVE_COURSE_ERROR:
-      draft.error = action.error;
+      draft.error = `${action.error.status}: ${action.error.statusText}`;
       return;
     case GET_COURSES_BEGIN:
       draft.loading = true;
@@ -50,7 +51,9 @@ const reducer = produce((draft, action) => {
       draft.loading = false;
       return;
     case GET_COURSES_ERROR:
-      draft.error = action.error;
+      draft.error = `${action.error.status}: ${action.error.statusText}`;
+      draft.loading = false;
+      draft.courses = [];
       return;
     case OPEN_NEW_COURSE_MODAL:
       draft.modalOpen = true;

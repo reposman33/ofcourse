@@ -5,7 +5,7 @@ const postData = (url = "", data = {}) => {
     method: "POST",
     headers: { "content-type": "Application/Json" },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  }).then(response => response);
 };
 
 const deleteCourse = course => deleteData("/courses", course);

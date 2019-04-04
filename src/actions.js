@@ -12,14 +12,26 @@ const GET_COURSES_ERROR = "GET_COURSES_ERROR";
 const OPEN_NEW_COURSE_MODAL = "OPEN_NEW_COURSE_MODAL";
 const CLOSE_NEW_COURSE_MODAL = "CLOSE_NEW_COURSE_MODAL";
 
+const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
+const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
+
+const verifyResponse = res => {
+  if (!res.ok) {
+    throw res;
+  } else {
+    return res.json();
+  }
+};
+
 const addCourse = ({ name, price }) => (dispatch, getState) => {
   dispatch({ type: ADD_COURSE_BEGIN });
   createCourse({ name, price })
+    .then(res => verifyResponse(res))
     .then(courseData => {
       dispatch({ type: ADD_COURSE_SUCCESS, payload: courseData });
       dispatch({ type: CLOSE_NEW_COURSE_MODAL });
     })
-    .catch(error => dispatch({ type: ADD_COURSE_ERROR, error: error }));
+    .catch(error => dispatch({ type: ADD_COURSE_ERROR, error }));
 };
 
 const removeCourse = course => (dispatch, getState) => {
@@ -32,16 +44,12 @@ const removeCourse = course => (dispatch, getState) => {
 const loadCourses = () => (dispatch, getState) => {
   dispatch({ type: GET_COURSES_BEGIN });
   getCourses()
-    .then(res => res.json())
+    .then(res => verifyResponse(res))
     .then(courseData =>
       dispatch({ type: GET_COURSES_SUCCESS, payload: courseData })
     )
     .catch(error => dispatch({ type: GET_COURSES_ERROR, error: error }));
 };
-
-const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
-
-const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
 
 export {
   REMOVE_COURSE,

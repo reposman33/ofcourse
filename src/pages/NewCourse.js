@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addCourse } from "../actions";
 import "./NewCourse.css";
 
-const NewCourse = ({ saveError, addCourse }) => {
+const NewCourse = ({ error, addCourse }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const inputRef = useRef();
@@ -42,14 +42,14 @@ const NewCourse = ({ saveError, addCourse }) => {
             />{" "}
           </label>
         </div>
-        {saveError && <div>ERROR: {saveError.message}</div>}
+        {error ? error : ""}
         <button type="submit">OK</button>
       </form>
     </div>
   );
 };
 
-const mapStateToProps = state => ({ saveError: state.saveError });
+const mapStateToProps = state => ({ error: state.error });
 const mapDispatchToProps = { addCourse };
 
 export default connect(

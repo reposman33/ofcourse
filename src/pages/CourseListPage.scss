@@ -31,6 +31,15 @@ $font-size: 16px;
   transition: background-color 0.2s linear, color 0.2s ease-in;
   flex-direction: row;
 
+  & a {
+    color: #222;
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+    }
+  }
+
   &:hover {
     background-color: darkcyan;
     color: white;

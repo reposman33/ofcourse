@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "@reach/router";
 import Modal from "react-modal";
 import NewCourse from "./NewCourse";
 import { openNewCourseModal, closeNewCourseModal } from "../actions";
@@ -29,10 +30,10 @@ const CourseListPage = ({
       <ul>
         {courses.map(course => (
           <li key={course.id} className="courselist__item">
-            <a href={`courses/${course.id}`}>
+            <Link to={`/courses/${course.id}`}>
               <div>{course.name}</div>
               <div>&euro; &nbsp;{course.price.replace(".", ",")}</div>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

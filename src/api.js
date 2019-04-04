@@ -1,4 +1,5 @@
-const createCourse = course => postData("/courses", course);
+const createCourse = course => postData(PREFIX + "/courses", course);
+const PREFIX = "/api";
 
 const postData = (url = "", data = {}) => {
   return fetch(url, {
@@ -8,7 +9,7 @@ const postData = (url = "", data = {}) => {
   }).then(response => response);
 };
 
-const deleteCourse = course => deleteData("/courses", course);
+const deleteCourse = course => deleteData(PREFIX + "/courses", course);
 
 const deleteData = (url, course) => {
   return fetch(url, {
@@ -18,6 +19,6 @@ const deleteData = (url, course) => {
   });
 };
 
-const getCourses = () => fetch("/courses");
+const getCourses = () => fetch(PREFIX + "/courses");
 
 export { createCourse, deleteCourse, getCourses };

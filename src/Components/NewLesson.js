@@ -1,57 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { addLesson } from "../actions";
+import { addLesson, loadLessons } from "../actions";
 import "./NewLesson.scss";
 
-const NewLesson = ({ courseId, loadLesson, addLesson }) => {
-	const [editMode, setEditMode] = useState(false);
-	const [lessonName, setLessonName] = useState("");
+const NewLesson = ({
+  courseId,
+  addLesson,
+  getLessons,
+  lessons,
+  error,
+  loadLessons
+}) => {
+  const [editMode, setEditMode] = useState(false);
+  const [lessonName, setLessonName] = useState("");
+  const inputRef = useRef();
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		addLesson({
-			name: lessonName,
-			courseId: courseId
-		});
-		reset();
-	};
+  const handleSubmit = e => {
+    e.preventDefault();
+    addLesson({
+      name: lessonName,
+      courseId: courseId
+    });
+    reset();
+    loadLessons(courseId);
+  };
 
-	const reset = () => {
-		setLessonName("");
-		setEditMode(false);
-	};
+  const reset = () => {
+    setLessonName("");
+    setEditMode(false);
+  };
 
-	return editMode ? (
-		loadLesson ? (
-			<div>Loading...</div>
-		) : (
-			<div className='NewLesson'>
-				<form onSubmit={handleSubmit}>
-					<label htmlFor='NewLesson'>
-						<input
-							type='text'
-							id='NewLesson'
-							value={lessonName}
-							onChange={e => setLessonName(e.target.value)}
-							placeholder='Title'
-						/>
-					</label>
-					<button type='submit'>OK</button>
-				</form>
-			</div>
-		)
-	) : (
-		<button onClick={() => setEditMode(true)}>New Lesson</button>
-	);
+  return editMode ? (
+    <div>
+      <form className="add-lesson-button editing">
+        <input
+          ref={inputRef}
+          type="text"
+          id="NewLesson"
+          value={lessonName}
+          onChange={e => setLessonName(e.target.value)}
+          placeholder="Title"
+        />
+      </form>
+      {error && `${error.message} (${error.detail})`}
+      <button onClick={handleSubmit}>OK</button>
+    </div>
+  ) : (
+    <div>
+      <button onClick={() => setEditMode(true)} className="add-lesson-button">
+        New Lesson
+      </button>
+      {error && `${error.message} (${error.detail})`}
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({
-	loadLesson: state.lessons.loadLesson
+  addLesson: state.addLesson,
+  getLessons: state.getLEssons,
+  lessons: state.lessons,
+  error: state.error
 });
 const mapDispatchToProps = {
-	addLesson
+  addLesson,
+  loadLessons
 };
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(NewLesson);

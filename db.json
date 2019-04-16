@@ -1,111 +1,81 @@
 {
-	"courses": [
-		{
-			"name": "Onder professoren",
-			"price": "35.55",
-			"id": 1
-		},
-		{
-			"name": "Mandarijnen op zwavelzuur",
-			"price": "18.95",
-			"id": 2
-		},
-		{
-			"name": "Nooit meer slapen",
-			"price": "5.45",
-			"id": 3
-		},
-		{
-			"name": "De donkere kamer van Damocles",
-			"price": "9.99",
-			"id": 4
-		},
-		{
-			"name": "Alice in wonderland",
-			"price": "3.45",
-			"id": 5
-		},
-		{
-			"name": "Eeuwig zingen de velden",
-			"price": "3.33",
-			"id": 6
-		},
-		{
-			"name": "The grapes of wrath",
-			"price": "4.45",
-			"id": 7
-		},
-		{
-			"name": "De bodem van Amsterdam",
-			"price": "3.45",
-			"id": 8
-		},
-		{
-			"name": "Frans Nederlands woordenboek",
-			"price": "14.95",
-			"id": 9
-		},
-		{
-			"name": "Duits Nederlands woordenboek",
-			"price": "12.95",
-			"id": 10
-		},
-		{
-			"name": "De laatste der Mohikanen",
-			"price": "14.45",
-			"id": 11
-		},
-		{
-			"name": "Vlees minderen",
-			"price": "15.25",
-			"id": 14
-		},
-		{
-			"name": "Wees onzichtbaar",
-			"price": "14.95",
-			"id": 15
-		},
-		{
-			"name": "Reis om de wereld in 80 dagen",
-			"price": "80.00",
-			"id": 16
-		}
-	],
-	"lessons": [
-		{
-			"name": "De nachtkleding aantrekken",
-			"courseId": 1,
-			"id": 1
-		},
-		{
-			"name": "Deel1: Antartica",
-			"courseId": 1,
-			"id": 2
-		},
-		{
-			"name": "Deel 2: Belarusia",
-			"courseId": 1,
-			"id": 3
-		},
-		{
-			"name": "De ontmoeting",
-			"courseId": 2,
-			"id": 4
-		},
-		{
-			"name": "Op het seminarium",
-			"courseId": 2,
-			"id": 5
-		},
-		{
-			"name": "Radeloos",
-			"courseId": 2,
-			"id": 6
-		},
-		{
-			"name": "tst",
-			"courseId": 3,
-			"id": 7
-		}
-	]
+  "courses": [
+    {
+      "name": "Onder professoren",
+      "price": "35.55",
+      "id": 1
+    },
+    {
+      "name": "Mandarijnen op zwavelzuur",
+      "price": "18.95",
+      "id": 2
+    },
+    {
+      "name": "Nooit meer slapen",
+      "price": "5.45",
+      "id": 3
+    },
+    {
+      "name": "De donkere kamer van Damocles",
+      "price": "9.99",
+      "id": 4
+    },
+    {
+      "name": "Alice in wonderland",
+      "price": "3.45",
+      "id": 5
+    },
+    {
+      "name": "Eeuwig zingen de velden",
+      "price": "3.33",
+      "id": 6
+    },
+    {
+      "name": "The grapes of wrath",
+      "price": "4.45",
+      "id": 7
+    },
+    {
+      "name": "De bodem van Amsterdam",
+      "price": "3.45",
+      "id": 8
+    },
+    {
+      "name": "Frans Nederlands woordenboek",
+      "price": "14.95",
+      "id": 9
+    },
+    {
+      "name": "Duits Nederlands woordenboek",
+      "price": "12.95",
+      "id": 10
+    },
+    {
+      "name": "De laatste der Mohikanen",
+      "price": "14.45",
+      "id": 11
+    },
+    {
+      "name": "Vlees minderen",
+      "price": "15.25",
+      "id": 14
+    },
+    {
+      "name": "Wees onzichtbaar",
+      "price": "14.95",
+      "id": 15
+    },
+    {
+      "name": "Reis om de wereld in 80 dagen",
+      "price": "80.00",
+      "id": 16
+    }
+  ],
+  "lessons": [
+    {
+      "name": "Test 1",
+      "courseId": 1,
+      "id": 1
+    }
+  ]
 }

@@ -8,7 +8,9 @@ import {
 	closeNewCourseModal,
 	loadCourses
 } from "../actions";
-import "./CourseListPage.scss";
+import { getCourses } from "../selectors";
+import styles from "./CourseListPage.module.scss";
+// import "./CourseListPage.scss";
 
 const CourseListPage = ({
 	courses,
@@ -20,17 +22,19 @@ const CourseListPage = ({
 	closeNewCourseModal
 }) => {
 	return (
-		<div className='courselist'>
+		<div className={styles.courselist}>
 			<h1>Mijn boekwinkel</h1>
 			{adding ? "Saving new course" : ""}
 			{removing ? "Removing new course" : ""}
 
-			<button className='new-course-btn' onClick={openNewCourseModal}>
+			<button
+				className={styles["new-course-btn"]}
+				onClick={openNewCourseModal}>
 				Voeg nieuw boek toe
 			</button>
 			<ul>
 				{courses.map(course => (
-					<li key={course.id} className='courselist__item'>
+					<li key={course.id} className={styles.courselist__item}>
 						<Link to={`/courses/${course.id}`}>
 							<div>{course.name}</div>
 							<div>
@@ -51,7 +55,7 @@ const CourseListPage = ({
 
 const CoursePrice = () => {
 	return (
-		<div className='courselist__item-price'>
+		<div className={styles.courselist__itemPrice}>
 			<label>
 				<div>Prijs</div>
 				<input type='number' step='0.01' min='0' />
@@ -61,7 +65,7 @@ const CoursePrice = () => {
 };
 
 const mapStateToProps = state => ({
-	courses: state.courses.courses,
+	courses: getCourses(state),
 	adding: state.adding,
 	removing: state.removing,
 	error: state.error,

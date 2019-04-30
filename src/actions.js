@@ -65,23 +65,21 @@ const loadCourses = () => (dispatch, getState) => {
 const addLesson = (name, courseId) => (dispatch, getState) => {
 	dispatch({ type: ADD_LESSON_BEGIN });
 	createLesson(name, courseId)
-		.then(res => verifyResponse())
+		.then(res => verifyResponse(res))
 		.then(lessons =>
 			dispatch({ type: ADD_LESSON_SUCCESS, payload: lessons })
 		)
 		.catch(error => dispatch({ type: ADD_LESSON_ERROR, error }));
 };
 
-const loadLessons = id => {
-	return dispatch => {
-		dispatch({ type: GET_LESSONS_BEGIN });
-		getLessons(id)
-			.then(verifyResponse)
-			.then(lessons =>
-				dispatch({ type: GET_LESSONS_SUCCESS, payload: lessons })
-			)
-			.catch(error => dispatch({ type: GET_LESSONS_ERROR, error }));
-	};
+const loadLessons = id => (dispatch, getState) => {
+	dispatch({ type: GET_LESSONS_BEGIN });
+	getLessons(id)
+		.then(res => verifyResponse(res))
+		.then(lessons =>
+			dispatch({ type: GET_LESSONS_SUCCESS, payload: lessons })
+		)
+		.catch(error => dispatch({ type: GET_LESSONS_ERROR, error }));
 };
 
 export {

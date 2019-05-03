@@ -3,7 +3,8 @@ import {
 	deleteCourse,
 	getCourses,
 	createLesson,
-	getLessons
+	getLessons,
+	saveLesson
 } from "./api";
 const REMOVE_COURSE = "REMOVE_COURSE";
 const ADD_COURSE_BEGIN = "ADD_COURSE_BEGIN";
@@ -20,11 +21,24 @@ const CLOSE_NEW_COURSE_MODAL = "CLOSE_NEW_COURSE_MODAL";
 const ADD_LESSON_BEGIN = "ADD_LESSON_BEGIN";
 const ADD_LESSON_SUCCESS = "ADD_LESSON_SUCCESS";
 const ADD_LESSON_ERROR = "ADD_LESSON_ERROR";
-const GET_LESSONS_BEGIN = "GET_LESSONS_BEGIN";
-const GET_LESSONS_SUCCESS = "GET_LESSONS_SUCCESS";
-const GET_LESSONS_ERROR = "GET_LESSONS_ERROR";
+const LOAD_LESSONS_BEGIN = "LOAD_LESSONS_BEGIN";
+const LOAD_LESSONS_SUCCESS = "LOAD_LESSONS_SUCCESS";
+const LOAD_LESSONS_ERROR = "LOAD_LESSONS_ERROR";
+const SAVE_LESSON_BEGIN = "SAVE_LESSON_BEGIN";
+const SAVE_LESSON_SUCCESS = "SAVE_LESSON_SUCCESS";
+const SAVE_LESSON_ERROR = "SAVE_LESSON_ERROR";
 const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
 const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
+
+const updateLesson = lesson => (dispatch, getState) => {
+	dispatch({ type: SAVE_LESSON_BEGIN });
+	saveLesson(lesson)
+		.then(res => verifyResponse(res))
+		.then(lesson =>
+			dispatch({ type: SAVE_LESSON_SUCCESS, payload: lesson })
+		)
+		.catch(error => dispatch({ type: SAVE_LESSON_ERROR, error }));
+};
 
 const verifyResponse = res => {
 	if (!res.ok) {
@@ -73,13 +87,13 @@ const addLesson = (name, courseId) => (dispatch, getState) => {
 };
 
 const loadLessons = id => (dispatch, getState) => {
-	dispatch({ type: GET_LESSONS_BEGIN });
+	dispatch({ type: LOAD_LESSONS_BEGIN });
 	getLessons(id)
 		.then(res => verifyResponse(res))
 		.then(lessons =>
-			dispatch({ type: GET_LESSONS_SUCCESS, payload: lessons })
+			dispatch({ type: LOAD_LESSONS_SUCCESS, payload: lessons })
 		)
-		.catch(error => dispatch({ type: GET_LESSONS_ERROR, error }));
+		.catch(error => dispatch({ type: LOAD_LESSONS_ERROR, error }));
 };
 
 export {
@@ -98,14 +112,18 @@ export {
 	ADD_LESSON_BEGIN,
 	ADD_LESSON_ERROR,
 	ADD_LESSON_SUCCESS,
-	GET_LESSONS_ERROR,
-	GET_LESSONS_BEGIN,
-	GET_LESSONS_SUCCESS,
+	LOAD_LESSONS_ERROR,
+	LOAD_LESSONS_BEGIN,
+	LOAD_LESSONS_SUCCESS,
+	SAVE_LESSON_BEGIN,
+	SAVE_LESSON_SUCCESS,
+	SAVE_LESSON_ERROR,
 	openNewCourseModal,
 	closeNewCourseModal,
 	addCourse,
 	removeCourse,
 	loadCourses,
 	addLesson,
-	loadLessons
+	loadLessons,
+	updateLesson
 };

@@ -1,63 +1,103 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { loadLessons } from "../actions";
-import { getCourseById } from "../selectors";
+import { addLesson, updateLesson, loadLessons } from "../actions";
+import { getCourseById, getLessonsByCourseId } from "../selectors";
 import NotFoundPage from "./NotFoundPage";
-import NewLesson from "../Components/NewLesson";
+import Lesson from "../Components/Lesson";
 import "./CourseDetailPage.css";
+import { navigate } from "@reach/router";
 
-const CourseDetailPage = ({ course, lessons, loading, loadLessons }) => {
-  if (!course) {
-    return <NotFoundPage />;
-  }
+const navigateToOverview = () => {
+	navigate("/");
+};
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+const CourseDetailPage = ({
+	course,
+	lessons,
+	loading,
+	loadLessons,
+	addLesson,
+	updateLesson
+}) => {
+	if (!course) {
+		return <NotFoundPage />;
+	}
 
-  useEffect(() => {
-    loadLessons(course.id);
-  }, [course]);
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
-  return (
-    <div className="CourseDetail">
-      <header>
-        <h1>{course.name}</h1>
-      </header>
-      <div className="content">
-        <div className="sidebar">
-          {lessons && (
-            <ul>
-              {lessons.map(lesson => (
-                <li key={lesson.id}>{lesson.name}</li>
-              ))}
-            </ul>
-          )}
-          <NewLesson courseId={course.id} />
-        </div>
-      </div>
-    </div>
-  );
+	useEffect(() => {
+		loadLessons(course.id);
+	}, [course]);
+
+	return (
+		<div className='CourseDetail'>
+			<header>
+				<h1>{course.name}</h1>
+			</header>
+			<div className='content'>
+				<div className='sidebar'>
+					{lessons && (
+						<ul className='lessons'>
+							{lessons.map(lesson => (
+								<li key={lesson.id}>
+									<Lesson
+										className='lesson-item'
+										lesson={lesson}
+										onSubmit={name =>
+											updateLesson({
+												...lesson,
+												name
+											})
+										}>
+										{edit => (
+											<div className='lesson-item'>
+												{lesson.name}
+												<button
+													className='edit-lesson-btn'
+													onClick={() =>
+														edit(lesson.name)
+													}>
+													Edit
+												</button>
+											</div>
+										)}
+									</Lesson>
+								</li>
+							))}
+						</ul>
+					)}
+					<Lesson
+						className='add-lesson-btn'
+						onSubmit={lesson => addLesson(lesson, course.id)}>
+						{edit => (
+							<button className='add-lesson-btn' onClick={edit}>
+								Add
+							</button>
+						)}
+					</Lesson>
+
+					<button
+						className='list-lessons-button'
+						onClick={navigateToOverview}>
+						Overzicht
+					</button>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 const mapStateToProps = (state, ownProps) => {
-<<<<<<< HEAD
 	return {
 		course: getCourseById(state, ownProps),
-		lessons: state.lessons.lessons,
+		lessons: getLessonsByCourseId(state, ownProps),
 		loading: state.courses.loading
 	};
-=======
-  const courseId = parseInt(ownProps.courseId, 10);
-  return {
-    course: state.courses.courses.find(c => c.id === courseId),
-    lessons: state.lessons.lessons,
-    loading: state.courses.loading
-  };
->>>>>>> a8e15798df2076e4c2242f9de2c7f5b0f431fd68
 };
 
 export default connect(
-  mapStateToProps,
-  { loadLessons }
+	mapStateToProps,
+	{ loadLessons, addLesson, updateLesson }
 )(CourseDetailPage);

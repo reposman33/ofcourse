@@ -1,82 +1,85 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
-
-$button_color: #ccc;
-$button_color_darken: #657074;
-$border-color: #ccc;
-$font-size: 16px;
-
-.courselist {
-	font-size: $font-size;
-	font-family: "Source Sans Pro", helvetica, sans-serif;
-	padding: 5px;
+.CourseDetail {
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
-
-	& ul {
-		list-style: none;
-		padding-left: 0;
-		font-size: 1.2rem;
-	}
-
-	& h1 {
-		font-size: 4rem;
-	}
-}
-.courselist__item {
-	align-items: baseline;
-	background-color: transparent;
-	border: 1px solid $border-color;
-	cursor: pointer;
-	padding: 3px;
-	transition: background-color 0.2s linear, color 0.2s ease-in;
-	flex-direction: row;
-
-	& a {
-		color: #222;
-		text-decoration: none;
-
-		&:hover {
-			color: white;
-		}
-	}
-
-	&:hover {
-		background-color: darkcyan;
-		color: white;
-	}
 }
 
-.courselist__item-price {
-	margin-top: 15px;
-	transition: display 0.3s ease-in-out;
-	width: 50%;
-
-	& input {
-		padding: 2px;
-	}
-	& label {
-		margin-right: 2em;
-
-		& div {
-			width: fit-content;
-		}
-	}
-}
-
-.new-course-btn {
-	background-color: #9c27b0;
-	border: none;
+.CourseDetail header {
+	background-color: #673ab7;
 	color: #fff;
-	cursor: pointer;
-	font-weight: 600;
-	width: 30%;
-	transition: color 0.2s ease-out, background-color 0.2s ease-in;
-	padding: 14px 10px;
-	border-radius: 1px;
-	align-self: flex-end;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 10px 20px;
+}
+.CourseDetail header h1 {
+	background-color: #673ab7;
+	margin: 0;
+	font-size: 24px;
+}
+.CourseDetail header .current-lesson {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 400;
+	opacity: 0.8;
+}
 
-	&:hover {
-		color: #eee;
-		background-color: darken($button_color, 33%);
+.CourseDetail .content {
+	display: flex;
+}
+
+.CourseDetail .sidebar {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.CourseDetail .sidebar .lessons {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.lessons .lesson-item {
+	margin-bottom: 5px;
+	border-style: solid;
+	border-radius: 3px;
+}
+.edit-lesson-btn {
+	opacity: 0;
+	border: none;
+	font-size: 10px;
+	cursor: pointer;
+}
+.lesson-item:hover .edit-lesson-btn,
+.edit-lesson-btn:focus {
+	opacity: 1;
+}
+
+@media only screen and (min-width: 638px) {
+	.CourseDetail .content {
+		flex-direction: row;
+		height: 100%;
+	}
+	.CourseDetail .sidebar {
+		flex-basis: 300px;
+		background: #fbf9ff;
+		border-right: 1px solid #bba0ea;
+	}
+	.CourseDetail .lesson {
+		flex: 1;
+	}
+}
+@media only screen and (max-width: 637px) {
+	.CourseDetail .content {
+		flex-direction: column;
+	}
+	.CourseDetail .sidebar {
+		background: #fbf9ff;
+		border-bottom: 1px solid #bba0ea;
+		min-height: 50px;
+	}
+	.CourseDetail .lesson {
+		flex: 1;
 	}
 }

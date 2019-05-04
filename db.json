@@ -73,7 +73,7 @@
   ],
   "lessons": [
     {
-      "name": "Deel1: Antartica",
+      "name": "Deel 1: Antartica 4 ever",
       "courseId": 1,
       "id": 1
     },
@@ -86,16 +86,6 @@
       "name": "De nachtkleding aantrekken",
       "courseId": 1,
       "id": 3
-    },
-    {
-      "name": "De nachtkleding uittrekken",
-      "courseId": 1,
-      "id": 4
-    },
-    {
-      "name": "Ten strijde trekken",
-      "courseId": 1,
-      "id": 5
     }
   ]
 }

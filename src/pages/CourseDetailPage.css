@@ -53,6 +53,21 @@
 	font-size: 10px;
 	cursor: pointer;
 }
+.edit-lesson-btn:hover,
+.delete-lesson-btn:hover {
+	animation-name: animateButton;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+}
+@keyframes animateButton {
+	from {
+		background-color: transparent;
+	}
+	to {
+		background-color: darkgray;
+	}
+}
 .edit-lesson-btn {
 	margin-right: 5px;
 }

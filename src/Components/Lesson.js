@@ -1,9 +1,16 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { loadLessons } from "../actions";
+import { loadLessons, removeLesson } from "../actions";
 import "./Lesson.scss";
 
-const Lesson = ({ error, onSubmit, className, lesson, children }) => {
+const Lesson = ({
+	error,
+	onSubmit,
+	className,
+	lesson,
+	children,
+	removeLesson
+}) => {
 	const initialTitle = lesson ? lesson.name : "";
 	const [editMode, setEditMode] = useState(false);
 	const [lessonName, setLessonName] = useState(initialTitle);
@@ -33,7 +40,7 @@ const Lesson = ({ error, onSubmit, className, lesson, children }) => {
 					type='text'
 					id='NewLesson'
 					onChange={e => setLessonName(e.target.value)}
-					placeholder='Title'
+					value={lessonName}
 					onBlur={handleBlur}
 				/>
 			</form>
@@ -41,7 +48,7 @@ const Lesson = ({ error, onSubmit, className, lesson, children }) => {
 		</div>
 	) : (
 		<div>
-			{children(beginEditing)}
+			{children(beginEditing, removeLesson)}
 			{error && `Error! ${error.message} (${error.detail})`}
 		</div>
 	);
@@ -51,7 +58,8 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 const mapDispatchToProps = {
-	loadLessons
+	loadLessons,
+	removeLesson
 };
 export default connect(
 	mapStateToProps,

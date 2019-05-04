@@ -4,7 +4,8 @@ import {
 	getCourses,
 	createLesson,
 	getLessons,
-	saveLesson
+	saveLesson,
+	deleteLesson
 } from "./api";
 const REMOVE_COURSE = "REMOVE_COURSE";
 const ADD_COURSE_BEGIN = "ADD_COURSE_BEGIN";
@@ -21,6 +22,9 @@ const CLOSE_NEW_COURSE_MODAL = "CLOSE_NEW_COURSE_MODAL";
 const ADD_LESSON_BEGIN = "ADD_LESSON_BEGIN";
 const ADD_LESSON_SUCCESS = "ADD_LESSON_SUCCESS";
 const ADD_LESSON_ERROR = "ADD_LESSON_ERROR";
+const REMOVE_LESSON_BEGIN = "REMOVE_LESSON_BEGIN";
+const REMOVE_LESSON_SUCCESS = "REMOVE_LESSON_SUCCESS";
+const REMOVE_LESSON_ERROR = "REMOVE_LESSON_ERROR";
 const LOAD_LESSONS_BEGIN = "LOAD_LESSONS_BEGIN";
 const LOAD_LESSONS_SUCCESS = "LOAD_LESSONS_SUCCESS";
 const LOAD_LESSONS_ERROR = "LOAD_LESSONS_ERROR";
@@ -29,16 +33,6 @@ const SAVE_LESSON_SUCCESS = "SAVE_LESSON_SUCCESS";
 const SAVE_LESSON_ERROR = "SAVE_LESSON_ERROR";
 const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
 const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
-
-const updateLesson = lesson => (dispatch, getState) => {
-	dispatch({ type: SAVE_LESSON_BEGIN });
-	saveLesson(lesson)
-		.then(res => verifyResponse(res))
-		.then(lesson =>
-			dispatch({ type: SAVE_LESSON_SUCCESS, payload: lesson })
-		)
-		.catch(error => dispatch({ type: SAVE_LESSON_ERROR, error }));
-};
 
 const verifyResponse = res => {
 	if (!res.ok) {
@@ -62,6 +56,7 @@ const addCourse = ({ name, price }) => (dispatch, getState) => {
 const removeCourse = course => (dispatch, getState) => {
 	dispatch({ type: REMOVE_COURSE_BEGIN });
 	deleteCourse(course)
+		.then(res => verifyResponse(res))
 		.then(res => dispatch({ type: REMOVE_COURSE_SUCCESS }))
 		.catch(error => dispatch({ type: REMOVE_COURSE_ERROR, error }));
 };
@@ -76,13 +71,21 @@ const loadCourses = () => (dispatch, getState) => {
 		.catch(error => dispatch({ type: GET_COURSES_ERROR, error }));
 };
 
-const addLesson = (name, courseId) => (dispatch, getState) => {
-	dispatch({ type: ADD_LESSON_BEGIN });
-	createLesson(name, courseId)
+const updateLesson = lesson => (dispatch, getState) => {
+	dispatch({ type: SAVE_LESSON_BEGIN });
+	saveLesson(lesson)
 		.then(res => verifyResponse(res))
-		.then(lessons =>
-			dispatch({ type: ADD_LESSON_SUCCESS, payload: lessons })
+		.then(lesson =>
+			dispatch({ type: SAVE_LESSON_SUCCESS, payload: lesson })
 		)
+		.catch(error => dispatch({ type: SAVE_LESSON_ERROR, error }));
+};
+
+const addLesson = lesson => (dispatch, getState) => {
+	dispatch({ type: ADD_LESSON_BEGIN });
+	createLesson(lesson)
+		.then(res => verifyResponse(res))
+		.then(lesson => dispatch({ type: ADD_LESSON_SUCCESS, payload: lesson }))
 		.catch(error => dispatch({ type: ADD_LESSON_ERROR, error }));
 };
 
@@ -94,6 +97,16 @@ const loadLessons = id => (dispatch, getState) => {
 			dispatch({ type: LOAD_LESSONS_SUCCESS, payload: lessons })
 		)
 		.catch(error => dispatch({ type: LOAD_LESSONS_ERROR, error }));
+};
+
+const removeLesson = lessonId => (dispatch, getState) => {
+	dispatch({ type: REMOVE_LESSON_BEGIN });
+	deleteLesson(lessonId)
+		.then(res => verifyResponse(res))
+		.then(dispatch({ type: REMOVE_LESSON_SUCCESS, payload: lessonId }))
+		.catch(error =>
+			dispatch({ type: REMOVE_LESSON_ERROR, payload: error })
+		);
 };
 
 export {
@@ -118,6 +131,9 @@ export {
 	SAVE_LESSON_BEGIN,
 	SAVE_LESSON_SUCCESS,
 	SAVE_LESSON_ERROR,
+	REMOVE_LESSON_BEGIN,
+	REMOVE_LESSON_SUCCESS,
+	REMOVE_LESSON_ERROR,
 	openNewCourseModal,
 	closeNewCourseModal,
 	addCourse,
@@ -125,5 +141,6 @@ export {
 	loadCourses,
 	addLesson,
 	loadLessons,
-	updateLesson
+	updateLesson,
+	removeLesson
 };

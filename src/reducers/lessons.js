@@ -8,7 +8,10 @@ import {
 	LOAD_LESSONS_ERROR,
 	SAVE_LESSON_BEGIN,
 	SAVE_LESSON_SUCCESS,
-	SAVE_LESSON_ERROR
+	SAVE_LESSON_ERROR,
+	REMOVE_LESSON_BEGIN,
+	REMOVE_LESSON_SUCCESS,
+	REMOVE_LESSON_ERROR
 } from "../actions";
 
 const initialState = {
@@ -41,15 +44,29 @@ const reducer = produce((draft, action) => {
 			draft.saving = true;
 			draft.error = null;
 			return;
+		case ADD_LESSON_SUCCESS:
+			draft.saving = false;
+			draft.lessons.push(action.payload);
+			return;
 		case ADD_LESSON_ERROR:
 		case SAVE_LESSON_ERROR:
 			draft.saving = false;
 			draft.error = action.error;
 			return;
-		case ADD_LESSON_SUCCESS:
 		case SAVE_LESSON_SUCCESS:
 			draft.saving = false;
 			draft.lessons[action.payload.id] = action.payload;
+			return;
+		case REMOVE_LESSON_BEGIN:
+			draft.deleting = true;
+			return;
+		case REMOVE_LESSON_SUCCESS:
+			draft.deleting = false;
+			delete draft.lessons[action.payload];
+			return;
+		case REMOVE_LESSON_ERROR:
+			draft.deleting = false;
+			draft.error = action.payload.error;
 			return;
 		default:
 			return;

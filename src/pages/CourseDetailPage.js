@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { addLesson, updateLesson, loadLessons } from "../actions";
+import { addLesson, loadLessons, updateLesson } from "../actions";
 import { getCourseById, getLessonsByCourseId } from "../selectors";
 import NotFoundPage from "./NotFoundPage";
 import Lesson from "../Components/Lesson";
@@ -15,6 +15,8 @@ const CourseDetailPage = ({
 	course,
 	lessons,
 	loading,
+	saving,
+	deleting,
 	loadLessons,
 	addLesson,
 	updateLesson
@@ -23,8 +25,14 @@ const CourseDetailPage = ({
 		return <NotFoundPage />;
 	}
 
-	if (loading) {
-		return <div>Loading...</div>;
+	if (loading || saving || deleting) {
+		return (
+			<div>
+				{(loading && "Loading...") ||
+					(saving && "Saving...") ||
+					(deleting && "Deleting...")}
+			</div>
+		);
 	}
 
 	useEffect(() => {
@@ -46,21 +54,29 @@ const CourseDetailPage = ({
 										className='lesson-item'
 										lesson={lesson}
 										onSubmit={name =>
-											updateLesson({
-												...lesson,
-												name
-											})
+											updateLesson({ ...lesson, name })
 										}>
-										{edit => (
+										{(edit, removeLesson) => (
 											<div className='lesson-item'>
-												{lesson.name}
-												<button
-													className='edit-lesson-btn'
-													onClick={() =>
-														edit(lesson.name)
-													}>
-													Edit
-												</button>
+												<span>{lesson.name}</span>
+												<div>
+													<button
+														className='edit-lesson-btn'
+														onClick={() =>
+															edit(lesson.name)
+														}>
+														Edit
+													</button>
+													<button
+														className='delete-lesson-btn'
+														onClick={() =>
+															removeLesson(
+																lesson.id
+															)
+														}>
+														Delete
+													</button>
+												</div>
 											</div>
 										)}
 									</Lesson>
@@ -70,9 +86,11 @@ const CourseDetailPage = ({
 					)}
 					<Lesson
 						className='add-lesson-btn'
-						onSubmit={lesson => addLesson(lesson, course.id)}>
+						onSubmit={name =>
+							addLesson({ name, courseId: course.id })
+						}>
 						{edit => (
-							<button className='add-lesson-btn' onClick={edit}>
+							<button className='edit-lessons-btn' onClick={edit}>
 								Add
 							</button>
 						)}
@@ -93,7 +111,9 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		course: getCourseById(state, ownProps),
 		lessons: getLessonsByCourseId(state, ownProps),
-		loading: state.courses.loading
+		loading: state.loading,
+		saving: state.saving,
+		deleting: state.deleting
 	};
 };
 

@@ -46,6 +46,9 @@
 	border-style: solid;
 	border-radius: 3px;
 }
+.lessons .lesson-item .lessonName-link {
+	text-decoration: none;
+}
 .delete-lesson-btn,
 .edit-lesson-btn {
 	background-color: transparent;
@@ -76,6 +79,9 @@
 .lesson-item:hover .edit-lesson-btn,
 .edit-lesson-btn:focus {
 	opacity: 1;
+}
+.lesson-item:hover {
+	background: #dcdd8c;
 }
 .lesson-item.selected {
 	background: #e9e5ff;

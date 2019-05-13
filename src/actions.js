@@ -5,7 +5,8 @@ import {
 	createLesson,
 	getLessons,
 	saveLesson,
-	deleteLesson
+	deleteLesson,
+	saveLessonMarkdown
 } from "./api";
 const REMOVE_COURSE = "REMOVE_COURSE";
 const ADD_COURSE_BEGIN = "ADD_COURSE_BEGIN";
@@ -31,6 +32,9 @@ const LOAD_LESSONS_ERROR = "LOAD_LESSONS_ERROR";
 const SAVE_LESSON_BEGIN = "SAVE_LESSON_BEGIN";
 const SAVE_LESSON_SUCCESS = "SAVE_LESSON_SUCCESS";
 const SAVE_LESSON_ERROR = "SAVE_LESSON_ERROR";
+const SET_LESSONMARKDOWN = "SET_LESSONMARKDOWN";
+const SET_LESSONMARKDOWN_ERROR = "SET_LESSONMARKDOWN_ERROR";
+
 const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
 const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
 
@@ -109,6 +113,23 @@ const removeLesson = lessonId => (dispatch, getState) => {
 		);
 };
 
+let timeoutId = null;
+const setLessonMarkdown = (lesson, markdown) => (dispatch, getState) => {
+	dispatch({
+		type: SET_LESSONMARKDOWN,
+		payload: { lesson, markdown }
+	});
+	// throttle saving the new lessonname
+	if (!timeoutId) {
+		timeoutId = setTimeout(() => {
+			const latest = getState().lessons.lessons[lesson.id];
+			dispatch(updateLesson(latest));
+			clearTimeout(timeoutId);
+			timeoutId = null;
+		}, 1000);
+	}
+};
+
 export {
 	REMOVE_COURSE,
 	ADD_COURSE_BEGIN,
@@ -134,6 +155,8 @@ export {
 	REMOVE_LESSON_BEGIN,
 	REMOVE_LESSON_SUCCESS,
 	REMOVE_LESSON_ERROR,
+	SET_LESSONMARKDOWN,
+	SET_LESSONMARKDOWN_ERROR,
 	openNewCourseModal,
 	closeNewCourseModal,
 	addCourse,
@@ -142,5 +165,6 @@ export {
 	addLesson,
 	loadLessons,
 	updateLesson,
-	removeLesson
+	removeLesson,
+	setLessonMarkdown
 };

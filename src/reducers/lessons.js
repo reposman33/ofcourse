@@ -11,7 +11,9 @@ import {
 	SAVE_LESSON_ERROR,
 	REMOVE_LESSON_BEGIN,
 	REMOVE_LESSON_SUCCESS,
-	REMOVE_LESSON_ERROR
+	REMOVE_LESSON_ERROR,
+	SET_LESSONMARKDOWN,
+	SET_LESSONMARKDOWN_ERROR
 } from "../actions";
 
 const initialState = {
@@ -66,6 +68,13 @@ const reducer = produce((draft, action) => {
 			return;
 		case REMOVE_LESSON_ERROR:
 			draft.deleting = false;
+			draft.error = action.payload.error;
+			return;
+		case SET_LESSONMARKDOWN:
+			draft.lessons[action.payload.lesson.id].name =
+				action.payload.markdown;
+			return;
+		case SET_LESSONMARKDOWN_ERROR:
 			draft.error = action.payload.error;
 			return;
 		default:

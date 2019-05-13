@@ -71,7 +71,7 @@ const reducer = produce((draft, action) => {
 			draft.error = action.payload.error;
 			return;
 		case SET_LESSONMARKDOWN:
-			draft.lessons[action.payload.lesson.id].name =
+			draft.lessons[action.payload.lesson.id].markdown =
 				action.payload.markdown;
 			return;
 		case SET_LESSONMARKDOWN_ERROR:

@@ -29,7 +29,7 @@ const deleteLesson = lessonId => deleteData(PREFIX + `/lessons/${lessonId}`);
 const deleteData = (url, data = {}) => fetchWithData(url, data, "DELETE");
 
 const saveLessonMarkdown = (lesson, markdown) =>
-	putData(PREFIX + `/lessons/${lesson.id}`, { ...lesson, name: markdown });
+	putData(PREFIX + `/lessons/${lesson.id}`, { ...lesson, markdown });
 
 export {
 	createCourse,

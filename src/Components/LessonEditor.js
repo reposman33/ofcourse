@@ -14,7 +14,7 @@ const LessonEditor = ({ lesson, setLessonMarkdown }) => {
 			<div>les: '{lesson.id}'</div>
 			<textarea
 				className='lesson-editor'
-				value={lesson.name || ""}
+				value={lesson.markdown || ""}
 				onChange={e => setLessonMarkdown(lesson, e.target.value)}
 			/>
 		</div>

@@ -80,12 +80,14 @@
     {
       "name": "Deel1: Atlantis",
       "courseId": 1,
-      "id": 2
+      "id": 2,
+      "markdown": "dit is een spannende inleiding..."
     },
     {
       "name": "Deel 2: Duinkerken",
       "courseId": 1,
-      "id": 3
+      "id": 3,
+      "markdown": "het wordt nu echt spannend..."
     }
   ]
 }

@@ -21,12 +21,9 @@ const LessonEditor = ({ lesson, setLessonMarkdown }) => {
 	);
 };
 
-const mapDispatch = dispatch => ({
-	setLessonMarkdown: () => dispatch(setLessonMarkdown)
-});
+const mapDispatch = { setLessonMarkdown };
 
 export default connect(
 	null,
-	{ setLessonMarkdown }
+	mapDispatch
 )(LessonEditor);
-// export default LessonEditor;

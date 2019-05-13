@@ -75,7 +75,8 @@
     {
       "name": "Proloog",
       "courseId": 1,
-      "id": 1
+      "id": 1,
+      "markdown": "Waarin Elise *zich* voorstelt..."
     },
     {
       "name": "Deel1: Atlantis",
@@ -87,7 +88,13 @@
       "name": "Deel 2: Duinkerken",
       "courseId": 1,
       "id": 3,
-      "markdown": "het wordt nu echt spannend..."
+      "markdown": "## Titels\n- Lord\n- Prins\n- Hofnar"
+    },
+    {
+      "name": "Epiloog",
+      "courseId": 1,
+      "id": 4,
+      "markdown": "deze *keer* was **het** ***raak***"
     }
   ]
 }

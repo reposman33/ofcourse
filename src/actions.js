@@ -5,8 +5,7 @@ import {
 	createLesson,
 	getLessons,
 	saveLesson,
-	deleteLesson,
-	saveLessonMarkdown
+	deleteLesson
 } from "./api";
 const REMOVE_COURSE = "REMOVE_COURSE";
 const ADD_COURSE_BEGIN = "ADD_COURSE_BEGIN";
@@ -34,6 +33,7 @@ const SAVE_LESSON_SUCCESS = "SAVE_LESSON_SUCCESS";
 const SAVE_LESSON_ERROR = "SAVE_LESSON_ERROR";
 const SET_LESSONMARKDOWN = "SET_LESSONMARKDOWN";
 const SET_LESSONMARKDOWN_ERROR = "SET_LESSONMARKDOWN_ERROR";
+const TOGGLE_PREVIEW_MODE = "TOGGLE_PREVIEW_MODE";
 
 const openNewCourseModal = () => ({ type: OPEN_NEW_COURSE_MODAL });
 const closeNewCourseModal = () => ({ type: CLOSE_NEW_COURSE_MODAL });
@@ -126,9 +126,11 @@ const setLessonMarkdown = (lesson, markdown) => (dispatch, getState) => {
 			dispatch(updateLesson(latest));
 			clearTimeout(timeoutId);
 			timeoutId = null;
-		}, 1000);
+		}, 500);
 	}
 };
+
+const togglepreviewMode = () => ({ type: TOGGLE_PREVIEW_MODE });
 
 export {
 	REMOVE_COURSE,
@@ -157,6 +159,7 @@ export {
 	REMOVE_LESSON_ERROR,
 	SET_LESSONMARKDOWN,
 	SET_LESSONMARKDOWN_ERROR,
+	TOGGLE_PREVIEW_MODE,
 	openNewCourseModal,
 	closeNewCourseModal,
 	addCourse,
@@ -166,5 +169,6 @@ export {
 	loadLessons,
 	updateLesson,
 	removeLesson,
-	setLessonMarkdown
+	setLessonMarkdown,
+	togglepreviewMode
 };

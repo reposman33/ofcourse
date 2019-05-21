@@ -15,6 +15,7 @@ import {
 	SET_LESSONMARKDOWN,
 	SET_LESSONMARKDOWN_ERROR
 } from "../actions";
+import { deleteLesson, updateLessons } from "../selectors";
 
 const initialState = {
 	lessons: [],
@@ -57,14 +58,14 @@ const reducer = produce((draft, action) => {
 			return;
 		case SAVE_LESSON_SUCCESS:
 			draft.saving = false;
-			draft.lessons[action.payload.id] = action.payload;
+			draft.lessons = updateLessons(draft.lessons, action.payload);
 			return;
 		case REMOVE_LESSON_BEGIN:
 			draft.deleting = true;
 			return;
 		case REMOVE_LESSON_SUCCESS:
 			draft.deleting = false;
-			delete draft.lessons[action.payload];
+			draft.lessons = deleteLesson(draft.lessons, action.payload);
 			return;
 		case REMOVE_LESSON_ERROR:
 			draft.deleting = false;

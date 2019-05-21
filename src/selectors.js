@@ -17,4 +17,19 @@ const getCourseById = createSelector(
 	(courses, id) => courses.find(course => course.id === id)
 );
 
-export { getCourseById, getCourses, getLessonsByCourseId };
+// delete lesson from lessons
+const deleteLesson = (lessons, id) =>
+	lessons.filter(lesson => lesson.id !== id);
+
+// update lesson in lessons
+const updateLessons = (lessons, updatedLesson) =>
+	lessons.map(lesson =>
+		lesson.id === updatedLesson.id ? updatedLesson : lesson
+	);
+export {
+	getCourseById,
+	getCourses,
+	getLessonsByCourseId,
+	deleteLesson,
+	updateLessons
+};

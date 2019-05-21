@@ -1,15 +1,15 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { loadLessons, removeLesson } from "../actions";
+import { removeLesson } from "../actions";
 import "./Lesson.scss";
 
 const Lesson = ({
-	error,
-	onSubmit,
 	className,
 	lesson,
-	children,
-	removeLesson
+	onSubmit,
+	error,
+	removeLesson,
+	children
 }) => {
 	const initialTitle = lesson ? lesson.name : "";
 	const [editMode, setEditMode] = useState(false);
@@ -58,7 +58,6 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 const mapDispatchToProps = {
-	loadLessons,
 	removeLesson
 };
 export default connect(

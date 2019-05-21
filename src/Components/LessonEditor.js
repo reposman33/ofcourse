@@ -11,7 +11,7 @@ const LessonEditor = ({ lesson, setLessonMarkdown }) => {
 					automatically.
 				</p>
 			</div>
-			<div>les: '{lesson.id}'</div>
+			<div>les: '{lesson.name}'</div>
 			<textarea
 				className='lesson-editor'
 				value={lesson.markdown || ""}

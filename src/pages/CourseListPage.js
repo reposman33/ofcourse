@@ -29,7 +29,7 @@ const CourseListPage = ({
 
 			<button
 				className={styles["new-course-btn"]}
-				onClick={openNewCourseModal}>
+				onClick={() => openNewCourseModal()}>
 				Voeg nieuw boek toe
 			</button>
 			<ul>
@@ -45,7 +45,7 @@ const CourseListPage = ({
 					</li>
 				))}
 			</ul>
-			{error ? error : ""}
+			{error ? error.message : ""}
 			<Modal isOpen={modalOpen} onRequestClose={closeNewCourseModal}>
 				<NewCourse />
 			</Modal>
@@ -66,10 +66,10 @@ const CoursePrice = () => {
 
 const mapStateToProps = state => ({
 	courses: getCourses(state),
-	adding: state.adding,
-	removing: state.removing,
-	error: state.error,
-	modalOpen: state.modalOpen
+	adding: state.courses.adding,
+	removing: state.courses.removing,
+	error: state.courses.error,
+	modalOpen: state.courses.modalOpen
 });
 
 const mapDispatchToProps = {

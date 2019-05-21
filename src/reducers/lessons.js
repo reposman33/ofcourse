@@ -39,7 +39,7 @@ const reducer = produce((draft, action) => {
 			return;
 		case LOAD_LESSONS_ERROR:
 			draft.loading = false;
-			draft.error = action.error;
+			draft.error = action.payload;
 			return;
 		case ADD_LESSON_BEGIN:
 		case SAVE_LESSON_BEGIN:
@@ -53,7 +53,7 @@ const reducer = produce((draft, action) => {
 		case ADD_LESSON_ERROR:
 		case SAVE_LESSON_ERROR:
 			draft.saving = false;
-			draft.error = action.error;
+			draft.error = action.payload;
 			return;
 		case SAVE_LESSON_SUCCESS:
 			draft.saving = false;
@@ -68,14 +68,14 @@ const reducer = produce((draft, action) => {
 			return;
 		case REMOVE_LESSON_ERROR:
 			draft.deleting = false;
-			draft.error = action.payload.error;
+			draft.error = action.payload;
 			return;
 		case SET_LESSONMARKDOWN:
 			draft.lessons[action.payload.lesson.id].markdown =
 				action.payload.markdown;
 			return;
 		case SET_LESSONMARKDOWN_ERROR:
-			draft.error = action.payload.error;
+			draft.error = action.payload;
 			return;
 		default:
 			return;

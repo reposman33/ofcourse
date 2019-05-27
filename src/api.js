@@ -47,7 +47,7 @@ const loginUser = (username, password) =>
 	postData(PREFIX + `/login`, { username, password });
 
 const createUser = (username, password) =>
-	putData(PREFIX + `/users`, { username, password });
+	postData(PREFIX + `/users`, { username, password });
 
 export {
 	createCourse,

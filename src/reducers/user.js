@@ -1,7 +1,6 @@
 import { produce } from "immer";
 import {
 	LOGIN_BEGIN,
-	LOGIN_SUCCESS,
 	LOGIN_ERROR,
 	SIGNUP_BEGIN,
 	SIGNUP_SUCCESS,
@@ -21,16 +20,18 @@ const reducer = produce((draft, action) => {
 			draft.loading = true;
 			draft.error = null;
 			return;
-		case LOGIN_SUCCESS:
 		case SIGNUP_SUCCESS:
 			draft.loading = false;
+			draft.error = null;
 			draft.user = action.payload;
 			return;
 		case LOGIN_ERROR:
 		case SIGNUP_ERROR:
 			draft.loading = false;
 			draft.user = null;
-			draft.error = action.payload;
+			draft.error = `${action.payload.errorStatus} - ${
+				action.payload.errorBody
+			}`;
 			return;
 		default:
 			return;

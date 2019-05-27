@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { onLogin, onSignUp } from "../actions";
 import "./LoginPage.css";
 
-const LoginPage = ({ error, loading, onLogin, onSignUp }) => {
+const LoginPage = ({ error, loading, onLogin, onSignUp, isLoggedIn, user }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	return (
@@ -27,7 +27,7 @@ const LoginPage = ({ error, loading, onLogin, onSignUp }) => {
 						onChange={e => setPassword(e.target.value)}
 					/>
 				</label>
-				{error && <div className='error'>{JSON.stringify(error)}</div>}
+				{error && <div className='error'>{error}</div>}
 				<button
 					type='submit'
 					disabled={loading.loading}
@@ -46,7 +46,9 @@ const LoginPage = ({ error, loading, onLogin, onSignUp }) => {
 
 const mapState = state => ({
 	error: state.user.error,
-	loading: state.user.loading
+	loading: state.user.loading,
+	isLoggedIn: state.app.isLoggedIn,
+	user: state.app.user
 });
 const mapDispatch = {
 	onSignUp,

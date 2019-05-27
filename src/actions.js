@@ -7,7 +7,8 @@ import {
 	saveLesson,
 	deleteLesson,
 	loginUser,
-	createUser
+	createUser,
+	registerLogin
 } from "./api";
 const REMOVE_COURSE = "REMOVE_COURSE";
 const ADD_COURSE_BEGIN = "ADD_COURSE_BEGIN";
@@ -111,12 +112,17 @@ const removeLesson = lessonId => (dispatch, getState) => {
 const onLogin = (username, password) => dispatch => {
 	dispatch({ type: LOGIN_BEGIN });
 	loginUser(username, password)
-		.then(user =>
-			dispatch({
-				type: LOGIN_SUCCESS,
-				payload: user
-			})
-		)
+		.then(user => {
+			if (user[0]) {
+				return dispatch({
+					type: LOGIN_SUCCESS,
+					payload: user
+				});
+			} else {
+				throw new Error("Onbekende inloggegevens");
+			}
+		})
+		.then(action => registerLogin(action.payload[0]))
 		.catch(error => dispatch({ type: LOGIN_ERROR, payload: error }));
 };
 

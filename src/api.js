@@ -2,8 +2,17 @@ const PREFIX = "/api";
 
 const handleError = res => {
 	if (!res.ok) {
-		return res.json().then(body => {
-			throw new Error(body.message);
+		// // If server down response body consists of text 'Proxy error: Could not...' , json() gives an error 'Unexpected token P in JSON at position 0'
+		return res.text().then(error => {
+			// // return status and statusText instead
+			const MAX_ERROR_LENGTH = 50;
+			const errorStatus = `${res.status} (${res.statusText})`;
+			const errorBody =
+				error.length > MAX_ERROR_LENGTH
+					? error.substr(0, MAX_ERROR_LENGTH) + "..."
+					: error;
+			const err = { errorBody, errorStatus };
+			throw err;
 		});
 	} else {
 		return res.json();
@@ -44,10 +53,16 @@ const saveLessonMarkdown = (lesson, markdown) =>
 	putData(PREFIX + `/lessons/${lesson.id}`, { ...lesson, markdown });
 
 const loginUser = (username, password) =>
-	postData(PREFIX + `/login`, { username, password });
+	// postData(PREFIX + `/login`, { username, password });
+	fetch(PREFIX + `/users?username=${username}&password=${password}`).then(
+		res => handleError(res)
+	);
 
 const createUser = (username, password) =>
 	postData(PREFIX + `/users`, { username, password });
+
+const registerLogin = user =>
+	postData(PREFIX + `/login`, user).then(res => res);
 
 export {
 	createCourse,
@@ -59,5 +74,6 @@ export {
 	deleteLesson,
 	saveLessonMarkdown,
 	loginUser,
-	createUser
+	createUser,
+	registerLogin
 };
